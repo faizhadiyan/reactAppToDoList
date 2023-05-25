@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import React, { useState, createContext } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Todos from './components/Todos';
 import TodoForm from './components/TodoForm';
 
+export const TodoContext = createContext()
 
 function App() {
   const [todos, setTodos] = useState([
@@ -71,30 +72,24 @@ function App() {
     setTodos(updatedTodos)
   }
 
-  // const deleteTodo = (todoIdDel) => {
-  //   const deletingList = todos.map((todo) => {
-  //     if (todo.id === todoIdDel) {
-  //       updatedItems.splice(index, 1)
-  //     }
-  //     return todo
-  //   })
-
-  //   const deleteItem = (index) => {
-  //     const updatedItems = [...items]; // Create a copy of the array
-  //     updatedItems.splice(index, 1); // Remove the item at the specified index
-  //     setItems(updatedItems); // Update the state with the modified array
-  //   };
-  //   setTodos(updatedTodos)
-  // }
 
   return (
      // Menambah CSS
-    <div style={styles.container}>
-      <h1 style={styles.title}>My Todo List</h1>
-      {/* Gunakan method map di sini */}
-      <TodoForm addTodo={addTodo}/>
-      <Todos todos={todos} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo}/>
-    </div>
+    // <div style={styles.container}>
+    //   <h1 style={styles.title}>My Todo List</h1>
+    //   {/* Gunakan method map di sini */}
+    //   <TodoForm addTodo={addTodo}/>
+    //   <Todos todos={todos} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo}/>
+    // </div>
+
+    // Bungkus app dengan provider dari context
+    <TodoContext.Provider value={{ toggleCompleted, deleteTodo }}>
+      <div style={styles.container}>
+        <h1 style={styles.title}>My Todo List</h1>
+        <TodoForm addTodo={addTodo} />
+        <Todos todos={todos} />
+      </div>
+    </TodoContext.Provider>
   )
   
 }
