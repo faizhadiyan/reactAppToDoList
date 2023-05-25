@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Todos from './components/Todos';
+import TodoForm from './components/TodoForm';
 
 
 function App() {
@@ -47,8 +48,28 @@ function App() {
 
   const deleteTodo = (todoId) => {
     const updatedTodosX = todos.filter((todo) => todo.id !== todoId);
-    setTodos(updatedTodosX);
-  };
+    setTodos(updatedTodosX)
+  }
+
+  // Definisikan function addTodo
+  // const addTodo = () => {
+  //   console.log('This is addTodo Function is ')
+  // }
+
+  const addTodo = (todoTitle) => {
+    if (todoTitle === '') {
+      return
+    }
+
+    const newTodo = {
+      id: todos.length + 1,
+      title: todoTitle,
+      completed: false,
+    }
+
+    const updatedTodos = todos.concat(newTodo)
+    setTodos(updatedTodos)
+  }
 
   // const deleteTodo = (todoIdDel) => {
   //   const deletingList = todos.map((todo) => {
@@ -71,6 +92,7 @@ function App() {
     <div style={styles.container}>
       <h1 style={styles.title}>My Todo List</h1>
       {/* Gunakan method map di sini */}
+      <TodoForm addTodo={addTodo}/>
       <Todos todos={todos} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo}/>
     </div>
   )
