@@ -27,6 +27,7 @@ function App() {
   ])
 
 
+
   const styles = {
     container: {
       textAlign: 'center',
@@ -63,26 +64,20 @@ function App() {
     }
 
     const newTodo = {
-      id: todos.length + 1,
+      // id: todos.length + 1,
+      id: todos[todos.length-1].id+1,
       title: todoTitle,
       completed: false,
     }
-
+    console.log(todos) 
     const updatedTodos = todos.concat(newTodo)
     setTodos(updatedTodos)
   }
 
+  
+
 
   return (
-     // Menambah CSS
-    // <div style={styles.container}>
-    //   <h1 style={styles.title}>My Todo List</h1>
-    //   {/* Gunakan method map di sini */}
-    //   <TodoForm addTodo={addTodo}/>
-    //   <Todos todos={todos} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo}/>
-    // </div>
-
-    // Bungkus app dengan provider dari context
     <TodoContext.Provider value={{ toggleCompleted, deleteTodo }}>
       <div style={styles.container}>
         <h1 style={styles.title}>My Todo List</h1>
